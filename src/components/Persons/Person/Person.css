@@ -6,10 +6,10 @@
   padding:  16px;
   text-align: center;
 }
-/* just another way of doing
+ just another way of doing
 @media (min-width: 500px) {
   .Person {
     width: 450px;
   }
 }
-*/
+
