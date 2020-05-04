@@ -5,6 +5,7 @@
   box-shadow: 0 2px 3px #ccc;
   padding:  16px;
   text-align: center;
+  background-color: lightcoral;
 }
  just another way of doing
 @media (min-width: 500px) {

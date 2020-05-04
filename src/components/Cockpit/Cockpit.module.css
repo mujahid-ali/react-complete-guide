@@ -1,9 +1,14 @@
+.Cockpit {
+    text-align: center;
+    background-color: lightblue;
+  }
+
 .red {
-    color: red;
+    color: maroon;
 }
 
 .bold {
-    font-weight: bold;
+    font-weight: italic bold serif;
 }
 
 .Cockpit button {

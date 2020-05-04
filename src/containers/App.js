@@ -1,10 +1,16 @@
 import React,{ Component } from 'react';
-import './App.css';
+import classes from'./App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    console.log('App.js constructor');
+  }
+
   state = {
     persons: [
       { id: 'asf1', name: 'Max', age:28 },
@@ -13,6 +19,10 @@ class App extends Component {
     ],
     otherState: 'some other value',
     showPersons: false
+  }
+
+  static getDerivedStateFromProps(props,state) {
+    console.log("  getDerivedStateFromProps ");
   }
 
   deletePersonHandler = (personIndex) => {
@@ -58,13 +68,13 @@ class App extends Component {
   }
   
   return (
-    <div className="App">
-      <Cockpit 
+    <div className="classes.App">
+      <Cockpit
+        title={this.props.appTitle} 
         showPersons={this.state.showPersons}
         persons={this.state.persons}
         clicked={this.togglePersonsHandler} />
       {persons}
-
     </div>
   );
  }
