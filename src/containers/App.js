@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import classes from'./App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import WithClass from '../hoc/WithClass';
 
 
 class App extends Component {
@@ -13,12 +14,14 @@ class App extends Component {
 
   state = {
     persons: [
-      { id: 'asf1', name: 'Max', age:28 },
-      { id: 'bsf2', name: 'Mujahid', age:29},
+      { id: 'asf1', name: 'Max', age: 28 },
+      { id: 'bsf2', name: 'Mujahid', age: 29},
       { id: 'csf3', name: 'Manu', age: 26}
     ],
     otherState: 'some other value',
-    showPersons: false
+    showPersons: false,
+    changeCounter: 0,
+    authenticated: false
   }
 
   static getDerivedStateFromProps(props,state) {
@@ -48,13 +51,25 @@ class App extends Component {
 
     const persons = [...this.state.persons];
     persons[personIndex] = person;
-    this.setState( {persons: persons} )
+    
+    this.setState((prevState, props ) => {
+      return {
+        persons: persons, changeCounter: prevState.changeCounter +1 
+        
+      };
+      //alert("Name changed number of times: " + prevState.changeCounter)
+
+    } ); 
   }
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({showPersons: !doesShow});
   }
+
+  loginHandler = () => {
+    this.setState({authenticated: true});
+  };
 
   render() {
   let persons = null;
@@ -64,18 +79,21 @@ class App extends Component {
         <Persons
           persons={this.state.persons} 
           clicked={this.deletePersonHandler}
-          changed={this.nameChangeHandler} />;
+          changed={this.nameChangeHandler}
+          isAuthenticated={this.state.authenticated} 
+        />;
   }
   
   return (
-    <div className="classes.App">
+    <WithClass classes="classes.App">
       <Cockpit
         title={this.props.appTitle} 
         showPersons={this.state.showPersons}
         persons={this.state.persons}
-        clicked={this.togglePersonsHandler} />
+        clicked={this.togglePersonsHandler}
+        login={this.loginHandler} />
       {persons}
-    </div>
+    </WithClass>
   );
  }
 }
